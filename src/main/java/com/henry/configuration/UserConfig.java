@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,7 +17,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = {"classpath:application.properties"})
 @EnableJpaRepositories(
         basePackages = "com.henry.repository.user",
         entityManagerFactoryRef = "userEntityManager",
@@ -28,7 +25,7 @@ import java.util.Properties;
 public class UserConfig {
 
     @Autowired
-    private Environment environment;
+    private DataSourceProperties dsProperties;
 
     @Bean
     @Primary
@@ -50,18 +47,18 @@ public class UserConfig {
     @Primary
     public DataSource userDataSource() throws IllegalArgumentException, NamingException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("app.datasource.user.driverClassName"));
-        dataSource.setUrl(environment.getProperty("app.datasource.user.url"));
-        dataSource.setUsername(environment.getProperty("app.datasource.user.username"));
-        dataSource.setPassword(environment.getProperty("app.datasource.user.password"));
+        dataSource.setDriverClassName(dsProperties.getUser().driverClassName());
+        dataSource.setUrl(dsProperties.getUser().url());
+        dataSource.setUsername(dsProperties.getUser().username());
+        dataSource.setPassword(dsProperties.getUser().password());
 
         return dataSource;
     }
 
     private Properties userHibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getRequiredProperty("app.datasource.user.dialect"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("app.datasource.user.ddlAuto"));
+        properties.put("hibernate.dialect",dsProperties.getUser().dialect());
+        properties.put("hibernate.hbm2ddl.auto",dsProperties.getUser().ddlAuto());
 
         return properties;
     }

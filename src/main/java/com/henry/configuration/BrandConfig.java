@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,7 +17,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = {"classpath:application.properties"})
 @EnableJpaRepositories(
         basePackages = "com.henry.repository.brand",
         entityManagerFactoryRef = "brandEntityManager",
@@ -28,7 +25,7 @@ import java.util.Properties;
 public class BrandConfig {
 
     @Autowired
-    private Environment environment;
+    private DataSourceProperties dsProperties;
 
     @Bean
     @Primary
@@ -50,18 +47,18 @@ public class BrandConfig {
     @Primary
     public DataSource brandDataSource() throws IllegalArgumentException, NamingException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("app.datasource.brand.driverClassName"));
-        dataSource.setUrl(environment.getProperty("app.datasource.brand.url"));
-        dataSource.setUsername(environment.getProperty("app.datasource.brand.username"));
-        dataSource.setPassword(environment.getProperty("app.datasource.brand.password"));
+        dataSource.setDriverClassName(dsProperties.getBrand().driverClassName());
+        dataSource.setUrl(dsProperties.getBrand().url());
+        dataSource.setUsername(dsProperties.getBrand().username());
+        dataSource.setPassword(dsProperties.getBrand().password());
 
         return dataSource;
     }
 
     private Properties brandHibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getRequiredProperty("app.datasource.brand.dialect"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("app.datasource.brand.ddlAuto"));
+        properties.put("hibernate.dialect", dsProperties.getBrand().dialect());
+        properties.put("hibernate.hbm2ddl.auto", dsProperties.getBrand().ddlAuto());
 
         return properties;
     }

@@ -3,8 +3,6 @@ package com.henry.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -18,7 +16,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = {"classpath:application.properties"})
 @EnableJpaRepositories(
         basePackages = "com.henry.repository.company",
         entityManagerFactoryRef = "companyEntityManager",
@@ -27,7 +24,7 @@ import java.util.Properties;
 public class CompanyConfig {
 
     @Autowired
-    private Environment environment;
+    private DataSourceProperties dsProperties;
 
     @Bean
     public LocalContainerEntityManagerFactoryBean companyEntityManager()
@@ -47,18 +44,18 @@ public class CompanyConfig {
     @Bean
     public DataSource companyDataSource() throws IllegalArgumentException, NamingException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("app.datasource.company.driverClassName"));
-        dataSource.setUrl(environment.getProperty("app.datasource.company.url"));
-        dataSource.setUsername(environment.getProperty("app.datasource.company.username"));
-        dataSource.setPassword(environment.getProperty("app.datasource.company.password"));
+        dataSource.setDriverClassName(dsProperties.getCompany().driverClassName());
+        dataSource.setUrl(dsProperties.getCompany().url());
+        dataSource.setUsername(dsProperties.getCompany().username());
+        dataSource.setPassword(dsProperties.getCompany().password());
 
         return dataSource;
     }
 
     private Properties companyHibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getRequiredProperty("app.datasource.company.dialect"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("app.datasource.company.ddlAuto"));
+        properties.put("hibernate.dialect", dsProperties.getCompany().dialect());
+        properties.put("hibernate.hbm2ddl.auto", dsProperties.getCompany().ddlAuto());
 
         return properties;
     }

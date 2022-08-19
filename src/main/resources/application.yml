@@ -2,3 +2,26 @@ server:
   port: 9000
   servlet:
     context-path: /
+
+datasource:
+  user:
+    url: jdbc:mariadb://localhost:3306/test1
+    username: root
+    password: mypass
+    driverClassName: org.mariadb.jdbc.Driver
+    ddlAuto: create-drop
+    dialect: org.hibernate.dialect.MySQL5Dialect
+  company:
+    url: jdbc:mariadb://localhost:3306/test2
+    username: root
+    password: mypass
+    driverClassName: org.mariadb.jdbc.Driver
+    ddlAuto: create-drop
+    dialect: org.hibernate.dialect.MySQL5Dialect
+  brand:
+    url: jdbc:mariadb://localhost:3306/test3
+    username: root
+    password: mypass
+    driverClassName: org.mariadb.jdbc.Driver
+    ddlAuto: create-drop
+    dialect: org.hibernate.dialect.MySQL5Dialect
