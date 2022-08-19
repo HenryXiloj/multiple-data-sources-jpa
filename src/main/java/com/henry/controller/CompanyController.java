@@ -1,7 +1,6 @@
 package com.henry.controller;
 
 import com.henry.model.company.Company;
-import com.henry.model.user.User;
 import com.henry.service.DefaultService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
