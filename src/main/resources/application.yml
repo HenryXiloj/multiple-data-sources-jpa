@@ -3,25 +3,23 @@ server:
   servlet:
     context-path: /
 
-datasource:
-  user:
-    url: jdbc:mariadb://localhost:3306/test1
-    username: root
-    password: mypass
-    driverClassName: org.mariadb.jdbc.Driver
-    ddlAuto: create-drop
-    dialect: org.hibernate.dialect.MySQL5Dialect
-  company:
-    url: jdbc:mariadb://localhost:3306/test2
-    username: root
-    password: mypass
-    driverClassName: org.mariadb.jdbc.Driver
-    ddlAuto: create-drop
-    dialect: org.hibernate.dialect.MySQL5Dialect
-  brand:
-    url: jdbc:mariadb://localhost:3306/test3
-    username: root
-    password: mypass
-    driverClassName: org.mariadb.jdbc.Driver
-    ddlAuto: create-drop
-    dialect: org.hibernate.dialect.MySQL5Dialect
+spring:
+  datasource:
+    mysql:
+      url: jdbc:mysql://localhost:3306/test_db?allowPublicKeyRetrieval=true
+      username: test
+      password: test_pass
+      driverClassName: com.mysql.cj.jdbc.Driver
+      ddlAuto: create-drop
+    postgres:
+      url: jdbc:postgresql:postgre_test
+      username: postgre_test
+      password: postgre_test
+      driverClassName: org.postgresql.Driver
+      ddlAuto: create-drop
+    oracle:
+      url: jdbc:oracle:thin:@//localhost:1521/xe
+      username: system
+      password: oracle
+      driverClassName: oracle.jdbc.OracleDriver
+      ddlAuto: update

@@ -1,39 +1,19 @@
 package com.henry.configuration;
 
-import com.henry.record.BrandRecord;
-import com.henry.record.CompanyRecord;
-import com.henry.record.UserRecord;
+import com.henry.record.OracleRecord;
+import com.henry.record.PostgreRecord;
+import com.henry.record.MysqlRecord;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import lombok.Data;
+
 @Component
-@ConfigurationProperties("datasource")
+@ConfigurationProperties("spring.datasource")
+@Data
 public class DataSourceProperties {
-   private UserRecord user;
-   private CompanyRecord company;
-   private BrandRecord brand;
+   private MysqlRecord mysql;
+   private PostgreRecord postgres;
+   private OracleRecord oracle;
 
-    public UserRecord getUser() {
-        return user;
-    }
-
-    public void setUser(UserRecord user) {
-        this.user = user;
-    }
-
-    public CompanyRecord getCompany() {
-        return company;
-    }
-
-    public void setCompany(CompanyRecord company) {
-        this.company = company;
-    }
-
-    public BrandRecord getBrand() {
-        return brand;
-    }
-
-    public void setBrand(BrandRecord brand) {
-        this.brand = brand;
-    }
 }
