@@ -4,7 +4,7 @@ we'll explore the configuration and setup for a Spring Boot 3 application with J
 
 
 # Detailed description and steps for run project found here: 
-[Multiple Data Sources in Spring Boot 3 with Java 21](https://jarmx.blogspot.com/2022/08/spring-data-jpa-multiple-data-source.html)
+[Multiple Data Sources in Spring Boot 3 with Java 21](https://jarmx.blogspot.com/2023/12/multiple-data-sources-in-spring-boot-3.html)
 
 # Run locally command: 
   
